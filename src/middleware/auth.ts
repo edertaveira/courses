@@ -24,7 +24,7 @@ export const authenticateJWT = (
 
     jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
       if (err) {
-        res.status(403).json({ error: "Token inválido ou expirado" });
+        res.status(403).json({ error: "Invalid or expired token" });
         return;
       }
       // Armazena as informações do usuário no request, se necessário
@@ -32,7 +32,7 @@ export const authenticateJWT = (
       next();
     });
   } else {
-    res.status(401).json({ error: "Autorização não fornecida" });
+    res.status(401).json({ error: "Authorization not provided" });
     return;
   }
 };

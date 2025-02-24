@@ -2,9 +2,9 @@ export const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "API de Cursos",
+      title: "Courses API",
       version: "1.0.0",
-      description: "Documentação da API de cursos do projeto",
+      description: "Project Courses API Documentation",
     },
     servers: [
       {

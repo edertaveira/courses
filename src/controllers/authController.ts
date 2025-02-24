@@ -20,7 +20,7 @@ const loginHandler: RequestHandler = (req, res): void => {
     username !== predefinedUser.username ||
     password !== predefinedUser.password
   ) {
-    res.status(401).json({ error: "Credenciais inválidas." });
+    res.status(401).json({ error: "Invalid credentials." });
     return;
   }
 

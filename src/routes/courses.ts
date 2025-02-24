@@ -16,7 +16,7 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Courses
- *   description: Gerenciamento de cursos
+ *   description: Course Management
  *
  * components:
  *   securitySchemes:
@@ -33,16 +33,16 @@ const router = express.Router();
  *           example: 1
  *         title:
  *           type: string
- *           example: "Curso de Node.js"
+ *           example: "Node.js Course"
  *         description:
  *           type: string
- *           example: "Descrição do curso"
+ *           example: "Course description"
  *         duration:
  *           type: number
  *           example: 10
  *         instructor:
  *           type: string
- *           example: "Nome do Instrutor"
+ *           example: "Instructor Name"
  */
 router.use("/", authenticateJWT);
 
@@ -50,7 +50,7 @@ router.use("/", authenticateJWT);
  * @swagger
  * /courses:
  *   post:
- *     summary: Cria um novo curso
+ *     summary: Create a new course
  *     tags: [Courses]
  *     security:
  *       - bearerAuth: []
@@ -68,39 +68,39 @@ router.use("/", authenticateJWT);
  *             properties:
  *               title:
  *                 type: string
- *                 example: "Curso de Node.js"
+ *                 example: "Node.js Course"
  *               description:
  *                 type: string
- *                 example: "Descrição detalhada do curso"
+ *                 example: "Detailed course description"
  *               duration:
  *                 type: number
  *                 example: 10
  *               instructor:
  *                 type: string
- *                 example: "Nome do Instrutor"
+ *                 example: "Instructor Name"
  *     responses:
  *       201:
- *         description: Curso criado com sucesso.
+ *         description: Course created successfully.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Course'
  *       400:
- *         description: Erro de validação.
+ *         description: Validation error.
  */
 router.post(
   "/courses",
   [
-    body("title").isString().notEmpty().withMessage("Title é obrigatório."),
+    body("title").isString().notEmpty().withMessage("Title is required."),
     body("description")
       .isString()
       .notEmpty()
-      .withMessage("Description é obrigatória."),
-    body("duration").isNumeric().withMessage("Duration deve ser um número."),
+      .withMessage("Description is required."),
+    body("duration").isNumeric().withMessage("Duration must be a number."),
     body("instructor")
       .isString()
       .notEmpty()
-      .withMessage("Instructor é obrigatório."),
+      .withMessage("Instructor is required."),
     validateRequest,
   ],
   createCourseController
@@ -110,7 +110,7 @@ router.post(
  * @swagger
  * /courses/{id}:
  *   put:
- *     summary: Atualiza os dados de um curso existente
+ *     summary: Update an existing course
  *     tags: [Courses]
  *     security:
  *       - bearerAuth: []
@@ -120,7 +120,7 @@ router.post(
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do curso
+ *         description: Course ID
  *     requestBody:
  *       required: true
  *       content:
@@ -135,41 +135,41 @@ router.post(
  *             properties:
  *               title:
  *                 type: string
- *                 example: "Curso Atualizado"
+ *                 example: "Updated Course"
  *               description:
  *                 type: string
- *                 example: "Descrição atualizada do curso"
+ *                 example: "Updated course description"
  *               duration:
  *                 type: number
  *                 example: 20
  *               instructor:
  *                 type: string
- *                 example: "Instrutor Atualizado"
+ *                 example: "Updated Instructor"
  *     responses:
  *       200:
- *         description: Curso atualizado com sucesso.
+ *         description: Course updated successfully.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Course'
  *       400:
- *         description: Erro de validação.
+ *         description: Validation error.
  *       404:
- *         description: Curso não encontrado.
+ *         description: Course not found.
  */
 router.put(
   "/courses/:id",
   [
-    body("title").isString().notEmpty().withMessage("Title é obrigatório."),
+    body("title").isString().notEmpty().withMessage("Title is required."),
     body("description")
       .isString()
       .notEmpty()
-      .withMessage("Description é obrigatória."),
-    body("duration").isNumeric().withMessage("Duration deve ser um número."),
+      .withMessage("Description is required."),
+    body("duration").isNumeric().withMessage("Duration must be a number."),
     body("instructor")
       .isString()
       .notEmpty()
-      .withMessage("Instructor é obrigatório."),
+      .withMessage("Instructor is required."),
     validateRequest,
   ],
   updateCourseController
@@ -179,7 +179,7 @@ router.put(
  * @swagger
  * /courses:
  *   get:
- *     summary: Retorna a lista de cursos
+ *     summary: Returns the list of courses
  *     tags: [Courses]
  *     security:
  *       - bearerAuth: []
@@ -188,10 +188,10 @@ router.put(
  *         name: title
  *         schema:
  *           type: string
- *         description: Filtro por título (case insensitive)
+ *         description: Title filter (case insensitive)
  *     responses:
  *       200:
- *         description: Lista de cursos.
+ *         description: List of courses.
  *         content:
  *           application/json:
  *             schema:
@@ -205,7 +205,7 @@ router.get("/courses", getCoursesController);
  * @swagger
  * /courses/{id}:
  *   get:
- *     summary: Retorna os detalhes de um curso específico
+ *     summary: Returns the details of a specific course
  *     tags: [Courses]
  *     security:
  *       - bearerAuth: []
@@ -215,16 +215,16 @@ router.get("/courses", getCoursesController);
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do curso
+ *         description: Course ID
  *     responses:
  *       200:
- *         description: Detalhes do curso.
+ *         description: Course details.
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Course'
  *       404:
- *         description: Curso não encontrado.
+ *         description: Course not found.
  */
 router.get("/courses/:id", getCourseByIdController);
 
@@ -232,7 +232,7 @@ router.get("/courses/:id", getCourseByIdController);
  * @swagger
  * /courses/{id}:
  *   delete:
- *     summary: Remove um curso pelo ID
+ *     summary: Delete a course by ID
  *     tags: [Courses]
  *     security:
  *       - bearerAuth: []
@@ -242,12 +242,12 @@ router.get("/courses/:id", getCourseByIdController);
  *         required: true
  *         schema:
  *           type: number
- *         description: ID do curso a ser removido
+ *         description: Course ID to be deleted
  *     responses:
  *       204:
- *         description: Curso removido com sucesso.
+ *         description: Course successfully deleted.
  *       404:
- *         description: Curso não encontrado.
+ *         description: Course not found.
  */
 router.delete("/courses/:id", deleteCourseController);
 

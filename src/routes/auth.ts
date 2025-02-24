@@ -11,14 +11,14 @@ const router = express.Router();
  * @swagger
  * tags:
  *   name: Authentication
- *   description: Endpoints de autenticação
+ *   description: Authentication endpoints
  */
 
 /**
  * @swagger
  * /login:
  *   post:
- *     summary: Autentica o usuário e retorna um token JWT.
+ *     summary: Authenticates the user and returns a JWT token.
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -38,7 +38,7 @@ const router = express.Router();
  *                 example: "admin"
  *     responses:
  *       200:
- *         description: Token JWT retornado com sucesso.
+ *         description: JWT token returned successfully.
  *         content:
  *           application/json:
  *             schema:
@@ -48,9 +48,9 @@ const router = express.Router();
  *                   type: string
  *                   example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
  *       400:
- *         description: Erro de validação.
+ *         description: Validation error.
  *       401:
- *         description: Credenciais inválidas.
+ *         description: Invalid credentials.
  */
 router.post(
   "/login",
@@ -58,11 +58,11 @@ router.post(
     body("username")
       .isString()
       .notEmpty()
-      .withMessage("Username é obrigatório."),
+      .withMessage("Username is required."),
     body("password")
       .isString()
       .notEmpty()
-      .withMessage("Password é obrigatório."),
+      .withMessage("Password is required."),
   ],
   loginHandler
 );

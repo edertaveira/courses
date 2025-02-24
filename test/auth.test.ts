@@ -23,7 +23,7 @@ describe("loginHandler", () => {
 		jest.clearAllMocks();
 	});
 
-	test("deve retornar 400 quando houver erros de validação", () => {
+	test("should return 400 when there are validation errors", () => {
 		const req = { body: { username: "admin", password: "admin" } } as Request;
 		(validationResult as unknown as jest.Mock).mockReturnValue({
 			isEmpty: () => false,
@@ -37,7 +37,7 @@ describe("loginHandler", () => {
 		expect(res.json).toHaveBeenCalledWith({ errors: [{ msg: "Erro" }] });
 	});
 
-	test("deve retornar 401 para credenciais inválidas", () => {
+	test("should return 401 for invalid credentials", () => {
 		const req = { body: { username: "wrong", password: "wrong" } } as Request;
 		(validationResult as unknown as jest.Mock).mockReturnValue({
 			isEmpty: () => true,
@@ -51,7 +51,7 @@ describe("loginHandler", () => {
 		expect(res.json).toHaveBeenCalledWith({ error: "Credenciais inválidas." });
 	});
 
-	test("deve retornar token para credenciais válidas", () => {
+	test("should return a token for valid credentials", () => {
 		const req = { body: { username: "admin", password: "admin" } } as Request;
 		(validationResult as unknown as jest.Mock).mockReturnValue({
 			isEmpty: () => true,
